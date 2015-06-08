@@ -2,7 +2,8 @@
 <feature
       id="org.eclipse.cdt.embsysregview.data_feature"
       label="EmbSysRegView Data"
-      version="0.2.5.r180">
+      version="0.2.5.r180"
+      provider-name="EmbSysRegView Project">
 
    <description url="http://embsysregview.sourceforge.net/">
       This Plugin provides the XML data files for the Embedded Systems Peripherals Register
