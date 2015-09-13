@@ -313,6 +313,10 @@ public class RegisterXMLParser {
 						
 						isCommaList = rdimIndex.indexOf(',', 0)!=-1; /* e.g. "0,1,2,3" */
 						isRangeList = rdimIndex.indexOf('-', 0)!=-1; /* e.g. "0-3" */ // \todo not handled yet! */
+						int rangeOffset = 0;
+						if (isRangeList) {
+							rangeOffset = Integer.parseInt(rdimIndex.substring(0, rdimIndex.indexOf('-')));
+						}
 						TreeRegister obj_register;
 
 					for (int i=0; i<rdim; i++) { // << EST
@@ -333,10 +337,10 @@ public class RegisterXMLParser {
 							    	begIdx = 0;
 							    }
 							} else if (isRangeList) {
-						    	r = "x"; /* \todo dummy value, need to handle e.g. "3-5" */
+						    	r = Integer.toString(i + rangeOffset);
 						    	begIdx = 0; /* reset index */
-							} else { /* unkonwn error? */
-						    	r = "[err]";
+							} else { /* If dimIndex is not specified, start with zero */
+						    	r = Integer.toString(i);
 						    	begIdx = 0; /* reset index */
 							}
 							s = rname.replace("%s", r); // replace %s with new string
