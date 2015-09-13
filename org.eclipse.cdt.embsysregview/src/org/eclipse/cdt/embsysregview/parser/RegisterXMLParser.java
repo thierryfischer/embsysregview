@@ -413,7 +413,7 @@ public class RegisterXMLParser {
 										if(element_lsb != null && element_msb != null)
 										{
 											fbitoffset = Byte.valueOf(element_lsb.getValue());
-											fbitlength = (byte) (Byte.valueOf(element_msb.getValue()) - Byte.valueOf(element_lsb.getValue()));
+											fbitlength = (byte) (Byte.valueOf(element_msb.getValue()) - Byte.valueOf(element_lsb.getValue()) + 1);
 										} else
 											throw new ParseException("field requires some sort of start-end bit marker", 1);
 									}
