@@ -62,6 +62,7 @@
   • Temperature range -40 to 85 ºC
   • Single power supply 1.8 to 3.8 V
 (C) Copyright Silicon Laboratories, Inc. 2015. All rights reserved.
+Version 5.2.1
   </chip_description>
   <group name="AES" description="">
     <registergroup name="AES" description="">
