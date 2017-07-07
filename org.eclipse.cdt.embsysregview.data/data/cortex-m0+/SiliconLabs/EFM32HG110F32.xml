@@ -62,6 +62,7 @@
   • Temperature range -40 to 85 ºC
   • Single power supply 1.8 to 3.8 V
 (C) Copyright Silicon Laboratories, Inc. 2015. All rights reserved.
+Version 5.2.1
   </chip_description>
   <group name="AES" description="">
     <registergroup name="AES" description="">
@@ -2087,6 +2088,18 @@
         </field>
         <field name="CALBSY" bitoffset="14" bitlength="1">
           <description>Calibration Busy</description>
+        </field>
+        <field name="USHFRCOENS" bitoffset="21" bitlength="1">
+          <description>USHFRCO Enable Status</description>
+        </field>
+        <field name="USHFRCORDY" bitoffset="22" bitlength="1">
+          <description>USHFRCO Ready</description>
+        </field>
+        <field name="USHFRCOSUSPEND" bitoffset="23" bitlength="1">
+          <description>USHFRCO is suspended</description>
+        </field>
+        <field name="USHFRCODIV2SEL" bitoffset="26" bitlength="1">
+          <description>USHFRCODIV2 Selected</description>
         </field>
       </register>
       <register name="IF" address="0x400c8030" access="RO" resetvalue="0x00000001">

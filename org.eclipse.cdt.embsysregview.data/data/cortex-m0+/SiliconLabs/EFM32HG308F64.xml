@@ -62,6 +62,7 @@
   • Temperature range -40 to 85 ºC
   • Single power supply 1.8 to 3.8 V
 (C) Copyright Silicon Laboratories, Inc. 2015. All rights reserved.
+Version 5.2.1
   </chip_description>
   <group name="DMA" description="">
     <registergroup name="DMA" description="">
@@ -1075,6 +1076,12 @@
         </field>
         <field name="LEMIDLEEN" bitoffset="9" bitlength="1">
           <description>Low Energy Mode on  Bus Idle Enable</description>
+        </field>
+        <field name="LEMNAKEN" bitoffset="10" bitlength="1">
+          <description>Low Energy Mode on OUT NAK Enable</description>
+        </field>
+        <field name="LEMADDRMEN" bitoffset="11" bitlength="1">
+          <description>Low Energy Mode on Device Address Mismatch Enable</description>
         </field>
         <field name="VREGDIS" bitoffset="16" bitlength="1">
           <description>Voltage Regulator Disable</description>

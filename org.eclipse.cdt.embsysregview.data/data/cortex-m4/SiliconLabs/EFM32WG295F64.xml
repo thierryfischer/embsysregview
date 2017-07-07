@@ -62,6 +62,7 @@
   • Temperature range -40 to 85 ºC
   • Single power supply 1.8 to 3.8 V
 (C) Copyright Silicon Laboratories, Inc. 2015. All rights reserved.
+Version 5.2.1
   </chip_description>
   <group name="DMA" description="">
     <registergroup name="DMA" description="">
@@ -32702,9 +32703,6 @@
           <description>
         Maximum Port Size
           </description>
-        </field>
-        <field name="Reserved" bitoffset="3" bitlength="1">
-          <description>Reserved</description>
         </field>
         <field name="FIFOFULL" bitoffset="8" bitlength="1">
           <description>FIFO FULL Supported</description>
