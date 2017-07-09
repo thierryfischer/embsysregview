@@ -15,17 +15,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.eclipse.cdt.debug.core.cdi.ICDISession;
-import org.eclipse.cdt.debug.core.cdi.model.ICDITarget;
-import org.eclipse.cdt.debug.internal.core.model.CDebugElement;
-import org.eclipse.cdt.debug.internal.core.model.CDebugTarget;
-import org.eclipse.cdt.debug.mi.core.MIException;
-import org.eclipse.cdt.debug.mi.core.MIFormat;
-import org.eclipse.cdt.debug.mi.core.MISession;
-import org.eclipse.cdt.debug.mi.core.cdi.model.Target;
-import org.eclipse.cdt.debug.mi.core.command.MIDataReadMemory;
-import org.eclipse.cdt.debug.mi.core.command.MIDataWriteMemory;
-import org.eclipse.cdt.debug.mi.core.output.MIResultRecord;
+//import org.eclipse.cdt.debug.core.cdi.ICDISession;
+//import org.eclipse.cdt.debug.core.cdi.model.ICDITarget;
+//import org.eclipse.cdt.debug.internal.core.model.CDebugElement;
+//import org.eclipse.cdt.debug.internal.core.model.CDebugTarget;
+import org.eclipse.cdt.dsf.mi.service.MIFormat;
 import org.eclipse.cdt.dsf.concurrent.DataRequestMonitor;
 import org.eclipse.cdt.dsf.concurrent.ImmediateExecutor;
 import org.eclipse.cdt.dsf.concurrent.Query;
@@ -46,6 +40,7 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.MemoryByte;
 import org.eclipse.debug.ui.DebugUITools;
+import org.eclipse.cdt.dsf.mi.service.MIFormat;
 
 
 public class GDBSessionTranslator {
@@ -63,7 +58,7 @@ public class GDBSessionTranslator {
 	static public Object getSession(Object context){
 		Object session = null;
 		if(null != context){
-			if(context instanceof DsfSession || context instanceof MISession)
+			if(context instanceof DsfSession)
 				session = context;
 			if(context instanceof IProcess){
 				//gets ILaunch out of processes (RuntimeProcess, GDBProcess)
@@ -77,33 +72,10 @@ public class GDBSessionTranslator {
 				IDMContext dmc =  ((IDMVMContext)context).getDMContext();
 				if(null == dmc) return null;
 				session = DsfSession.getSession(dmc.getSessionId());
-			}else if (context instanceof CDebugElement || context instanceof CLaunch){
-				//CDISession
-				Target miTarget = getMiTarget(getCDebugTarget(context));
-				if(null != miTarget){
-					session = miTarget.getMISession();
-				}
 			}
-
 		}
 		if(null != session && isSessionTerminated(session)) return null; //do not return terminated sessions
 		return session;
-	}
-	
-	/**
-	 * Gets the MITarget from CDebugTarget 
-	 * @return MITarget or null on error
-	 */
-	static public Target getMiTarget(CDebugTarget debugtarget){
-		if(null == debugtarget) return null;
-		ICDISession cdiSession = debugtarget.getCDISession();
-		if(null !=cdiSession){
-			ICDITarget mitarget = debugtarget.getCDITarget();
-			if(null != mitarget && mitarget instanceof Target){
-				return ((Target)mitarget);
-			}
-		}
-		return null;
 	}
 	
 	static public boolean isSessionTerminated(Object session){
@@ -127,43 +99,11 @@ public class GDBSessionTranslator {
 			if (launch instanceof GdbLaunch){
 				//GdbLaunch -> DsfSession
 				return ((GdbLaunch)launch).getSession();
-			}else if (launch instanceof CLaunch){
-				//CDISession
-				CDebugTarget target = getCDebugTarget(launch);
-				if(null != target){
-					Target miTarget = getMiTarget(target);
-					if(null != miTarget){
-						return miTarget.getMISession();
-					}
-				}
 			}
 		}
 		return null;
 	}
 	
-	/**
-	 * Gets CDebugtarget form debug context
-	 * @return CDebugtarget or null on error
-	 */
-	static public CDebugTarget getCDebugTarget(Object context){
-		Object target = null;
-		if(null == context) return null;
-		if(context instanceof IProcess){
-			//gets ILaunch out of processes (RuntimeProcess, GDBProcess)
-			context = ((IProcess)context).getLaunch();
-		}
-		if (context instanceof CLaunch){
-			target = ((CLaunch)context).getDebugTarget();
-		}
-		else if(context instanceof CDebugElement){
-			target = ((CDebugElement)context).getDebugTarget();
-		}
-		if(null == target) return null;
-		if(target instanceof CDebugTarget){
-			return (CDebugTarget) target;
-		}
-		return null;
-	}
 	
 	public static int maxWaitTimeInInMilliseconds = 5000; //5 seconds
 	
@@ -177,9 +117,7 @@ public class GDBSessionTranslator {
 	 */
 	static public int writeMemory(Object session, String address, String value, int iByteCount) throws TimeoutException {
 		if(null == session) return -1;
-		if(session instanceof MISession){
-			return writeMemory((MISession)session, address, value, iByteCount);
-		}else if (session instanceof DsfSession){
+		if (session instanceof DsfSession){
 			return writeMemory((DsfSession) session, address, value, iByteCount, maxWaitTimeInInMilliseconds); 
         }
 		return -1;
@@ -205,9 +143,7 @@ public class GDBSessionTranslator {
 	 */
 	static public long readMemory(Object session, String address, int iByteCount) throws TimeoutException {
 		if(null == session) return -1;
-		if(session instanceof MISession){
-			return readMemory((MISession)session, address, iByteCount);
-		}else if (session instanceof DsfSession){
+		if (session instanceof DsfSession){
             return readMemory((DsfSession) session, address, iByteCount, maxWaitTimeInInMilliseconds);
         }
 		return -1;
@@ -223,67 +159,6 @@ public class GDBSessionTranslator {
 	
 	static public long readMemory(long address, int iByteCount) throws TimeoutException {
 		return readMemory(getSession(), address, iByteCount);
-	}
-	
-	/**
-	 * Write a value to memory address.
-	 * @param session Debug session.
-	 * @param address Destination memory address.
-	 * @param value value to write.
-	 * @return Return iByteCount on success, -1 on failure.
-	 */
-	static public int writeMemory(MISession session, String address, String value, int iByteCount) {
-		int ret;
-		try {
-			int format;
-			MIDataWriteMemory commandDataWriteMemory;
-			if(value.contains("x")) {
-				format = MIFormat.HEXADECIMAL;
-			} else {
-				format = MIFormat.DECIMAL;
-			}
-			commandDataWriteMemory = session.getCommandFactory().createMIDataWriteMemory(0, address, format, iByteCount, value);
-			session.postCommand(commandDataWriteMemory);
-			if( !commandDataWriteMemory.getMIOutput().getMIResultRecord().getResultClass().matches(MIResultRecord.ERROR) ) {
-				ret = iByteCount;
-			} else {
-				//MIInfo minfo = new MIInfo(commandDataWriteMemory.getMIOutput());
-				//System.out.println(minfo.getErrorMsg());
-				ret = -1;
-			}
-		} catch (MIException e) {
-			//System.out.println(e.getErrorMsg());
-			ret = -1;
-		}
-		return ret;
-	}
-	
-	/**
-	 * Read value from the target memory.
-	 * @param pluginID 
-	 * @param session Debug session.
-	 * @param address Source address to read from.
-	 * @return The read value, or -1 on error.
-	 */
-	static public long readMemory(MISession session, String address, int iByteCount) {
-		long ret = -1;
-		try {
-			MIDataReadMemory commandDataReadMemory;
-			commandDataReadMemory = session.getCommandFactory().createMIDataReadMemory(0, address, MIFormat.HEXADECIMAL, iByteCount, 1, 1, null);
-			session.postCommand(commandDataReadMemory);
-			
-			if( !commandDataReadMemory.getMIOutput().getMIResultRecord().getResultClass().matches(MIResultRecord.ERROR) ) {
-				ret = commandDataReadMemory.getMIDataReadMemoryInfo().getMemories()[0].getData()[0];
-			} else {
-				//MIInfo minfo = new MIInfo(commandDataReadMemory.getMIOutput());
-				//System.out.println(minfo.getErrorMsg());
-				ret = -1;
-			}
-		} catch (MIException e) {
-			//System.out.println(e.getErrorMsg());
-			ret = -1;
-		}
-		return ret;
 	}
 	
 	/**

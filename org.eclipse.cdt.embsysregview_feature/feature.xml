@@ -27,7 +27,6 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.debug.ui"/>
       <import plugin="org.eclipse.cdt.debug.core"/>
-      <import plugin="org.eclipse.cdt.debug.mi.core" version="5.0.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.cdt.launch"/>
       <import plugin="org.eclipse.cdt.dsf.ui"/>
       <import plugin="org.eclipse.cdt.dsf.gdb"/>
