@@ -40,8 +40,6 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.MemoryByte;
 import org.eclipse.debug.ui.DebugUITools;
-import org.eclipse.cdt.dsf.mi.service.MIFormat;
-
 
 public class GDBSessionTranslator {
 	/**
