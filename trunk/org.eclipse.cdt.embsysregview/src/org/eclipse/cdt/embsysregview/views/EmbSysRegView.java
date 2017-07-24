@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     ravenclaw78 - initial API and implementation
+ *     Emil Brink <emil@obsession.se> - added collapseAllButton
  *******************************************************************************/
 package org.eclipse.cdt.embsysregview.views;
 
@@ -16,13 +17,13 @@ import net.miginfocom.swt.MigLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.part.*;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.jface.preference.IPreferencePage;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -61,7 +62,7 @@ public class EmbSysRegView extends ViewPart implements IGDBInterfaceSuspendListe
 	protected TreeViewer viewer;
 	private TreeParent invisibleRoot;
 	private Label infoLabel;
-	private Button configButton;
+	private Button configButton, collapseAllButton;
 	private Composite header;
 	private Action doubleClickAction;
 	private Image selectedImage, unselectedImage, selectedFieldImage, unselectedFieldImage, infoImage, interpretationImage, configButtonImage;
@@ -246,6 +247,20 @@ public class EmbSysRegView extends ViewPart implements IGDBInterfaceSuspendListe
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {}
 		});
+	    
+	    
+		collapseAllButton = new Button(header, SWT.FLAT);
+		collapseAllButton.setLayoutData(new RowData(17, 17));
+		collapseAllButton.setImage(PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_ELCL_COLLAPSEALL));
+		collapseAllButton.setToolTipText("Collapse all open tree nodes");
+		collapseAllButton.addListener(SWT.Selection, new Listener() {
+			public void handleEvent(Event e) {
+				if(e.type == SWT.Selection) {
+					viewer.collapseAll();
+				}
+			}
+		});
+	    
 	    
 	    infoLabel = new Label(header,SWT.NONE);
 	    	    
