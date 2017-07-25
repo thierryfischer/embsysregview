@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description name="embsysregview update site" url="http://embsysregview.sourceforge.net/update/">
+   <description name="embsysregview update site" url="http://embsysregview.sourceforge.net/update-beta/">
       This is the Beta Update site hosted on SourceForge for the Embedded Systems Pheripheral Register View
 
       Here you can test new features, please leave comments (https://sourceforge.net/projects/embsysregview/forums/forum/1947616) and report bugs.
    </description>
-   <feature url="features/org.eclipse.cdt.embsysregview_feature_0.2.5.jar" id="org.eclipse.cdt.embsysregview_feature" version="0.2.5">
+
+   <feature url="http://downloads.sourceforge.net/embsysregview/org.eclipse.cdt.embsysregview_feature_0.2.6.jar" id="org.eclipse.cdt.embsysregview_feature" version="0.2.6">
       <category name="embsysregview"/>
    </feature>
-   <feature url="features/org.eclipse.cdt.embsysregview.data_feature_0.2.5.r180.jar" id="org.eclipse.cdt.embsysregview.data_feature" version="0.2.5.r180">
+   <feature url="http://downloads.sourceforge.net/embsysregview/org.eclipse.cdt.embsysregview.data_feature_0.2.6.r191.jar" id="org.eclipse.cdt.embsysregview.data_feature" version="0.2.6.r191">
       <category name="embsysregview"/>
    </feature>
-   <archive path="plugins/org.eclipse.cdt.embsysregview_0.2.5.jar" url="http://downloads.sourceforge.net/embsysregview/org.eclipse.cdt.embsysregview_0.2.5.jar"/>
-   <archive path="plugins/org.eclipse.cdt.embsysregview.data_0.2.5.r180.jar" url="http://downloads.sourceforge.net/embsysregview/org.eclipse.cdt.embsysregview.data_0.2.5.r180.jar"/>
+
+   <archive path="plugins/org.eclipse.cdt.embsysregview_0.2.6.jar" url="http://downloads.sourceforge.net/embsysregview/org.eclipse.cdt.embsysregview_0.2.6.jar"/>
+   <archive path="plugins/org.eclipse.cdt.embsysregview.data_0.2.6.r191.jar" url="http://downloads.sourceforge.net/embsysregview/org.eclipse.cdt.embsysregview.data_0.2.6.r191.jar"/>
+
    <category-def name="embsysregview" label="embsysregview">
       <description>
          Embedded System Peripherals Register View

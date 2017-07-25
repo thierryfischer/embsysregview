@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EmbSysRegView
 Bundle-SymbolicName: org.eclipse.cdt.embsysregview;singleton:=true
-Bundle-Version: 0.2.5
+Bundle-Version: 0.2.6
 Bundle-Activator: org.eclipse.cdt.embsysregview.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.cdt.dsf.gdb,
  org.eclipse.cdt.dsf,
  org.eclipse.ui.forms,
- org.eclipse.cdt.embsysregview.data;bundle-version="0.2.3"
+ org.eclipse.cdt.embsysregview.data;bundle-version="0.2.6"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: jdom.jar,
