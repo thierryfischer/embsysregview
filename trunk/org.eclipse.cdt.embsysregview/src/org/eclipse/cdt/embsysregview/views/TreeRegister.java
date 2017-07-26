@@ -18,7 +18,7 @@ public class TreeRegister extends TreeParent{
 	private long value=-1;
 	private long resetValue;
 	private String type;
-	private long registerAddress;
+	private String registerAddress;
 	private boolean retrievalActive = false;
 	private int size=4;
 	
@@ -60,11 +60,11 @@ public class TreeRegister extends TreeParent{
 		this.retrievalActive = retrievalActive;
 	}
 
-	public long getRegisterAddress() {
+	public String getRegisterAddress() {
 		return registerAddress;
 	}
 
-	public TreeRegister(String name, String description, long registerAddress, long resetValue, String type, int size ) {
+	public TreeRegister(String name, String description, String registerAddress, long resetValue, String type, int size ) {
 		super(name, description);
 		this.registerAddress=registerAddress;
 		this.resetValue=resetValue;
@@ -152,7 +152,7 @@ public class TreeRegister extends TreeParent{
 					value=-1;
 			}
 			else
-				registerAddress=-1; //TODO: why this ???
+				registerAddress="-1"; //TODO: why this ???
 		}
 		else
 		{

@@ -344,11 +344,11 @@ public class RegisterXMLParser {
 						    	begIdx = 0; /* reset index */
 							}
 							s = rname.replace("%s", r); // replace %s with new string
-							obj_register = new TreeRegister(s, rdescription, lbaseAddress + raddress,
+							obj_register = new TreeRegister(s, rdescription, "0x"+Long.toHexString(lbaseAddress + raddress),
 									rresetvalue, raccess, rsize);
 							lbaseAddress += rdimIncrement;  // increment register
 						} else {
-							obj_register = new TreeRegister(rname, rdescription, lbaseAddress + raddress,
+							obj_register = new TreeRegister(rname, rdescription, "0x"+Long.toHexString(lbaseAddress + raddress),
 								rresetvalue, raccess, rsize);
 						}
 						/////////////////////////////////////////////////////////////////////////////////////////////
@@ -553,9 +553,9 @@ public class RegisterXMLParser {
 
 					// Mandatory attribute address
 					Attribute attr_roffsetaddress = register.getAttribute("address");
-					long raddress;
+					String raddress;
 					if (attr_roffsetaddress != null)
-						raddress = Long.parseLong(attr_roffsetaddress.getValue().substring(2), 16);
+						raddress = attr_roffsetaddress.getValue();
 					else
 						throw new ParseException("register requires address", 1);
 
@@ -583,8 +583,7 @@ public class RegisterXMLParser {
 					else
 						rsize = 4;
 
-					TreeRegister obj_register = new TreeRegister(rname, rdescription, raddress, rresetvalue, raccess,
-							rsize);
+					TreeRegister obj_register = new TreeRegister(rname, rdescription, raddress, rresetvalue, raccess, rsize);
 					obj_registergroup.addChild(obj_register);
 
 					Element register_description = register.getChild("description");

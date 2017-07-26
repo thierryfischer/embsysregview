@@ -708,8 +708,7 @@ public class EmbSysRegView extends ViewPart implements IGDBInterfaceSuspendListe
 				if (element instanceof TreeRegisterGroup)
 					return "";
 				if (element instanceof TreeRegister)
-					return Utils.longtoHexString(((TreeRegister) element).getRegisterAddress()
-								, 32); //TODO: get address width from xml ...
+					return ((TreeRegister) element).getRegisterAddress();
 				if (element instanceof TreeField)
 					return "";
 				else
