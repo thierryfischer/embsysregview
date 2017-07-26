@@ -15,6 +15,8 @@ public abstract class GDBInterface {
 	public abstract boolean hasActiveDebugSession();
 	public abstract long readMemory(long laddress, int iByteCount);
 	public abstract int writeMemory(long laddress, long lvalue, int iByteCount);
+	public abstract long readMemory(String laddress, int iByteCount);
+	public abstract int writeMemory(String laddress, long lvalue, int iByteCount);
 	public abstract void dispose();
 	public abstract void addSuspendListener(IGDBInterfaceSuspendListener listener);
 	public abstract void addterminateListener(IGDBInterfaceTerminateListener listener);

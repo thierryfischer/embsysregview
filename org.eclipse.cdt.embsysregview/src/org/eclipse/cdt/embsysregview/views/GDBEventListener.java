@@ -62,8 +62,13 @@ public class GDBEventListener extends GDBInterface implements IDebugEventSetList
 	
 	public long readMemory(long laddress, int iByteCount)
 	{
+		return readMemory(Long.toString(laddress), iByteCount);
+	}
+	
+	public long readMemory(String laddress, int iByteCount)
+	{
 		try {
-			return GDBSessionTranslator.readMemory(currentSession, laddress, iByteCount);
+			return GDBSessionTranslator.readMemory(currentSession, laddress, iByteCount);	
 		} catch (TimeoutException e) {
 			System.out.println(e);
 		}
@@ -72,8 +77,13 @@ public class GDBEventListener extends GDBInterface implements IDebugEventSetList
 	
 	public int writeMemory(long laddress, long lvalue, int iByteCount)
 	{
+		return writeMemory(Long.toString(laddress), lvalue, iByteCount);
+	}
+	
+	public int writeMemory(String laddress, long lvalue, int iByteCount)
+	{
 		try {
-			return GDBSessionTranslator.writeMemory(currentSession, laddress, lvalue, iByteCount);
+			return GDBSessionTranslator.writeMemory(currentSession, laddress, Long.toString(lvalue), iByteCount);
 		} catch (TimeoutException e) {
 			System.out.println(e);
 		}
