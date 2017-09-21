@@ -17,7 +17,27 @@
     	The EmbSysRegView works with any 32 bit target that stores data in little endian byte order and maps its register into memory adress space. 
     	In other words, if you find your registers in the CDT Memory View, the RegisterView will also work with that device assumin that a chip xml description is available.
     	
-  
+      </p>
+        <p>
+    	<h2>Version 0.2.6 Released</h2>
+    	<p>bug #20 "Cannot install in Eclipse Neon" is fixed by a patch from Morten Kristiansen</br>
+    	Because of this patch, EmbSysRegView now <b>works with the latest Eclipse version (Oxygen)</b></p>
+    	<table style="border: none;">    		
+    		<tr>
+    			<td style="border: none;">New files from Silicon Labs (5.2.1 sw release) includes Giant Gecko 11 Family</td>
+    		</tr>
+    		<tr>
+    			<td style="border: none;">The following patches were integrated:
+    				<ul> 
+    					<li>patch #23 Implemented dimIndex range & default behavior in SVD parser by Timothy Van Ruitenbeek</li>
+    					<li>patch #24 Fix for STM32F10X_CL.xml description from Igor</li>
+    					<li>with patch #25, Emil Brink added a Collapse-button to close all open tree branches</li>
+    					<li>bug #13 Wrong computation of bitfield length from lsb/msb fields in SVD files fixed by Veit Kleeberger</li>
+    				</ul>
+				</td>
+    		</tr>
+		</table>
+    </p>
     </p>
         <p>
     	<h2>Version 0.2.5 Released</h2>
